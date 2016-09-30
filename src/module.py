@@ -19,7 +19,13 @@ def printMenu():
 		if (choice == 6):
 			power()
 		if (choice == 7):
+			power()
+		if (choice == 8):
 			graphFunction()
+		if (choice == 9):
+			graphFunction()
+		if (choice == 10):
+			leastCommonMultiple()
 	
 
 def addition():
@@ -49,6 +55,12 @@ def division():
 def squareRoot():
 	print ("Enter numbers to perform square root")
 
+def power():
+	print ("Enter x^y")
+	number1 = input("X:")
+	number2 = input("Y:")
+	return pow(x,y)
+
 def graphFunction():
 
 	print ("Enter function variables: a,b,c,d")
@@ -69,10 +81,16 @@ def graphFunction():
 	maxNum = float(numbers[1])
 	
 
-	while (minNum < maxNum):
+	while (minNum <= maxNum):
 		y = (a * pow(minNum,b)) + (c * minNum) + d
 		print 'f(',minNum,') = ',y,' '
 		minNum += step
+
+def leastCommonMultiple():
+	print ("Enter two numbers to calculate LCM")
+	number1 = input("Number One:")
+	number2 = input("Number Two:")
+	print lcm(number1,number2)
 
 
 
