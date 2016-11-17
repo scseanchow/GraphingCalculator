@@ -10,5 +10,7 @@ def printMenu(argv,textFile):
     elif argv == "3":
         print "text file interface"
         #text.startText(textFile)
-
-printMenu(sys.argv[1])
+if (len(sys.argv) > 2):
+    printMenu(sys.argv[1],sys.argv[2])
+else:
+    printMenu(sys.argv[1],"NULL")
