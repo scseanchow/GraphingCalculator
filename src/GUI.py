@@ -3,6 +3,7 @@ from Tkinter import *
 # allows for regular "for loops"
 import numpy as np
 import random
+import arithmetic
 
 root = Tk()
 def startGUI():
