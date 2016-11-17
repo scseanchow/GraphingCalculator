@@ -1,15 +1,13 @@
-import module
 import GUI
+import sys
 
-def printMenu():
-    print("Menu")
-    choice = input("Enter your choice:")
-    if choice == 1:
+def printMenu(argv):
+    if argv == "1":
         print "Gui Interface"
         GUI.startGUI()
-    elif choice == 2:
-        print "command line interface"
-    elif choice == 3:
-        print "text interface"
+    elif argv == "2":
+        print "text line interface"
+    elif argv == "3":
+        print "text file interface"
 
-printMenu()
+printMenu(sys.argv[1])

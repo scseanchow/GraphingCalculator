@@ -7,6 +7,7 @@ import random
 root = Tk()
 def startGUI():
     root.geometry('1000x750')
+    #start loop
     root.mainloop()
 
 # function to calculate
