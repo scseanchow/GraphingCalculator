@@ -4,7 +4,7 @@ def printMenu():
 	while (choice != 'q'):
 
 		choice = input("Enter choice: ")
-		
+
 
 		if (choice == 1):
 			addition()
@@ -26,7 +26,11 @@ def printMenu():
 			graphFunction()
 		if (choice == 10):
 			leastCommonMultiple()
-	
+		if (choice == 11):
+			randomNumberGenerator()
+		if (choice == 12):
+
+
 
 def addition():
 	print ("Enter two numbers to perform addition.")
@@ -79,7 +83,7 @@ def graphFunction():
 	numbers = domain.split(',')
 	minNum = float(numbers[0])
 	maxNum = float(numbers[1])
-	
+
 
 	while (minNum <= maxNum):
 		y = (a * pow(minNum,b)) + (c * minNum) + d
@@ -91,16 +95,3 @@ def leastCommonMultiple():
 	number1 = input("Number One:")
 	number2 = input("Number Two:")
 	print lcm(number1,number2)
-
-
-
-
-
-
-
-
-
-
-
-
-
