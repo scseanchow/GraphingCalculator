@@ -20,6 +20,25 @@ bottom = Frame(root)
 top.pack(side=TOP)
 bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
 
+def display_Credits():
+    creditsArea = Canvas(top, relief=GROOVE, bd=3, width=175, height=130, bg="white", highlightcolor="black")
+    creditsArea.grid(row=3, column=6, sticky=N, columnspan=3, rowspan=10)
+    trevor = creditsArea.create_text(10, 10, anchor="nw")
+    creditsArea.itemconfig(trevor, text="Trevor D'Souza")
+    sean = creditsArea.create_text(10, 25, anchor="nw")
+    creditsArea.itemconfig(sean, text="Sean Chow")
+    daniel = creditsArea.create_text(10, 40, anchor="nw")
+    creditsArea.itemconfig(daniel, text="Daniel Domalik")
+    alej = creditsArea.create_text(10, 55, anchor="nw")
+    creditsArea.itemconfig(alej, text="Alejandro Lobo Mujica")
+    caleb = creditsArea.create_text(10, 70, anchor="nw")
+    creditsArea.itemconfig(caleb, text="Caleb Allen")
+    connor = creditsArea.create_text(10, 85, anchor="nw")
+    creditsArea.itemconfig(connor, text="Connor Campbell")
+    scott = creditsArea.create_text(10, 100, anchor="nw")
+    creditsArea.itemconfig(scott, text="Scott Bootsma")
+    shell = creditsArea.create_text(10, 115, anchor="nw")
+    creditsArea.itemconfig(shell, text="Sheldon Taylor-Rawson")
 
 def startGUI():
     root.mainloop()
@@ -299,6 +318,8 @@ cButton = Button(bottom, text='C', width=15, height=2,
                  bg='skyblue', command=lambda: update_entry("C")).grid(row=2, column=20, columnspan=3)
 piButton = Button(bottom, text='π', width=15, height=2,
                   bg='skyblue', command=lambda: update_entry("pi")).grid(row=3, column=20, columnspan=3)
+credsButton = Button(top, text='credits', width=10, height=1, bg='gray',
+                     command=lambda: display_Credits()).grid(row=2, column=6, sticky=N)
 
 # Locks the parent windows size.
 root.maxsize(1500, 1000)
