@@ -5,8 +5,6 @@ import fileCalc
 # driver file for graphing Calculator
 # takes in command line args to start respective program (1,2,3) , (gui,text line, text file)
 def printMenu(argv,textFile):
-    print argv
-    print textFile
     if argv == "1":
         print "GUI Interface Started!"
         GUI.startGUI()

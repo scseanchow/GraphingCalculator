@@ -2,9 +2,12 @@
 from Tkinter import *
 import numpy as np
 import random
-from math import *
+import math
 import parser
 import solve
+from pyparsing import Literal,CaselessLiteral,Word,Combine,Group,Optional,\
+    ZeroOrMore,Forward,nums,alphas
+import operator
 
 # expression stack
 exprStack = []
@@ -75,11 +78,15 @@ def drawNumbers():
     graphArea.create_line(0, 250, 500, 250)
     xRangeMin = float(xEntry1.get())
     xRangeMax = float(xEntry2.get())
-    for x in np.arange(xRangeMin, xRangeMax, 0.01):  # x1,x2,step
+    for x in np.arange(xRangeMin, xRangeMax, 0.05):  # x1,x2,step
         equation = txtDisplay.get()
-        a = parser.expr(equation).compile()
+        equation = equation.replace("x",str(x))
+        global emptyStack
+        emptyStack = []
+        ans = BNF().parseString(equation)
+        ans = evaluateStack(emptyStack[:])
         xvalues.append(x)
-        yvalues.append(eval(a))
+        yvalues.append(ans)
 
     # minimumX = min(xvalues)
     # maximumX = max(xvalues)
@@ -103,9 +110,94 @@ def drawNumbers():
         graphArea.create_oval(250 + i - 1, 250 - y - 1,
                               250 + i + 1, 250 - y + 1, fill="black")
 
+# functinos for solving infix
+def pushFirst( strg, loc, toks ):
+    emptyStack.append( toks[0] )
+def pushUMinus( strg, loc, toks ):
+    if toks and toks[0]=='-':
+        emptyStack.append( 'unary -' )
+        #~ exprStack.append( '-1' )
+        #~ exprStack.append( '*' )
+
+bnf = None
+def BNF():
+    """
+    expop   :: '^'
+    multop  :: '*' | '/'
+    addop   :: '+' | '-'
+    integer :: ['+' | '-'] '0'..'9'+
+    atom    :: PI | E | real | fn '(' expr ')' | '(' expr ')'
+    factor  :: atom [ expop factor ]*
+    term    :: factor [ multop factor ]*
+    expr    :: term [ addop term ]*
+    """
+    global bnf
+    if not bnf:
+        point = Literal( "." )
+        e     = CaselessLiteral( "E" )
+        fnumber = Combine( Word( "+-"+nums, nums ) +
+                           Optional( point + Optional( Word( nums ) ) ) +
+                           Optional( e + Word( "+-"+nums, nums ) ) )
+        ident = Word(alphas, alphas+nums+"_$")
+
+        plus  = Literal( "+" )
+        minus = Literal( "-" )
+        mult  = Literal( "*" )
+        div   = Literal( "/" )
+        lpar  = Literal( "(" ).suppress()
+        rpar  = Literal( ")" ).suppress()
+        addop  = plus | minus
+        multop = mult | div
+        expop = Literal( "^" )
+        pi    = CaselessLiteral( "PI" )
+
+        expr = Forward()
+        atom = (Optional("-") + ( pi | e | fnumber | ident + lpar + expr + rpar ).setParseAction( pushFirst ) | ( lpar + expr.suppress() + rpar )).setParseAction(pushUMinus)
+
+        # by defining exponentiation as "atom [ ^ factor ]..." instead of "atom [ ^ atom ]...", we get right-to-left exponents, instead of left-to-righ
+        # that is, 2^3^2 = 2^(3^2), not (2^3)^2.
+        factor = Forward()
+        factor << atom + ZeroOrMore( ( expop + factor ).setParseAction( pushFirst ) )
+
+        term = factor + ZeroOrMore( ( multop + factor ).setParseAction( pushFirst ) )
+        expr << term + ZeroOrMore( ( addop + term ).setParseAction( pushFirst ) )
+        bnf = expr
+    return bnf
+
+# map operator symbols to corresponding arithmetic operations
+epsilon = 1e-12
+opn = { "+" : operator.add,
+        "-" : operator.sub,
+        "*" : operator.mul,
+        "/" : operator.truediv,
+        "^" : operator.pow }
+fn  = { "sin" : math.sin,
+        "cos" : math.cos,
+        "tan" : math.tan,
+        "abs" : abs,
+        "trunc" : lambda a: int(a),
+        "round" : round,
+        "sgn" : lambda a: abs(a)>epsilon and cmp(a,0) or 0}
+def evaluateStack( s ):
+    op = s.pop()
+    if op == 'unary -':
+        return -evaluateStack( s )
+    if op in "+-*/^":
+        op2 = evaluateStack( s )
+        op1 = evaluateStack( s )
+        return opn[op]( op1, op2 )
+    elif op == "PI":
+        return math.pi # 3.1415926535
+    elif op == "E":
+        return math.e  # 2.718281828
+    elif op in fn:
+        return fn[op]( evaluateStack( s ) )
+    elif op[0].isalpha():
+        return 0
+    else:
+        return float( op )
+
 # update text box
-
-
 def update_entry(v):
     current_value = num1.get()
     num1.set(current_value + v)
