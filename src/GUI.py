@@ -78,7 +78,7 @@ xEntry2.grid(row=1, column=9, sticky=N)
 
 graphArea = Canvas(top, relief=GROOVE, bd=3, width=501,
                    height=501, bg="white", highlightcolor="black")
-graphArea.grid(row=1, column=0, sticky=W)
+graphArea.grid(row=1, column=0, rowspan = 20,sticky=W)
 
 # function to calculate
 
