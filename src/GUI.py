@@ -94,7 +94,7 @@ def goUp():
     maxIndex = len(answerStack)
     print maxIndex
 
-    if (index < maxIndex-1):
+    if (index < maxIndex - 1):
         index += 1
         txtDisplay.delete(0, END)
         update_entry(str(answerStack[index]))
