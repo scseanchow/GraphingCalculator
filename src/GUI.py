@@ -25,8 +25,32 @@ num1 = StringVar()
 txtDisplay = Entry(top, textvariable=num1, relief=RIDGE,
                    bd=10, width=63, insertwidth=1, font=40)
 txtDisplay.grid(row=0, column=0)
-graphArea = Canvas(top, relief=GROOVE, bd=3, width=501,
-                   height=501, bg="white", highlightcolor="black")
+
+def limitInput(*args):
+    value = x1.get()
+    if len(value) > 3: x1.set(value[:3])
+
+def limitInput2(*args):
+    value = x2.get()
+    if len(value) > 3: x2.set(value[:3])
+
+x1 = StringVar()
+x1.trace('w', limitInput)
+
+x2 = StringVar()
+x2.trace('w', limitInput2)
+
+xValuesLabel = Label(top, text="x values:", font=70)
+commaLabel = Label(top, text=",", font=40)
+xValuesLabel.grid(row=1, column=6, sticky=N)
+xEntry1 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x1)
+xEntry1.grid(row=1, column=7, sticky=N)
+commaLabel.grid(row=1, column=8, sticky=N)
+xEntry2 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x2)
+xEntry2.grid(row=1, column=9, sticky=N)
+
+
+graphArea = Canvas(top, relief=GROOVE, bd=3, width=501, height=501, bg="white", highlightcolor="black")
 graphArea.grid(row=1, column=0, sticky=W)
 
 # function to calculate
