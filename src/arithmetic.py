@@ -56,7 +56,7 @@ def power(a, b):
 #if either is non-numeric, returns None
 def greatestCommonDenominator(a, b):
     if (isNumber(a) and isNumber(b)):
-        while b:      
+        while b:
             a, b = b, a % b
         return a
     else:
@@ -115,4 +115,3 @@ def randomFloat(x, y):
         return random.uniform(x, y)
     else:
         return None
-

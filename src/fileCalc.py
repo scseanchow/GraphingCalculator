@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import os.path
-import solve
 from pyparsing import Literal,CaselessLiteral,Word,Combine,Group,Optional,\
     ZeroOrMore,Forward,nums,alphas
 import math
@@ -24,14 +23,13 @@ def fileRead(input):
                 emptyStack = []
                 ans = BNF().parseString(line)
                 ans = evaluateStack(emptyStack[:])
-                print line + " = " + ans
-                printer.write(line + " = " + ans)   #this
+                print line + " = " + str(ans)
+                printer.write(line + " = " + str(ans))   #this
         print "End of file"
         fp.close()      #this
         printer.close() #this
     else:
         print "That file does not exist"
-fileRead()
 
 def pushFirst( strg, loc, toks ):
     emptyStack.append( toks[0] )
@@ -41,7 +39,7 @@ def pushUMinus( strg, loc, toks ):
         #~ exprStack.append( '-1' )
         #~ exprStack.append( '*' )
 
-BNF = None
+bnf = None
 def BNF():
     """
     expop   :: '^'
