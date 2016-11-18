@@ -24,6 +24,9 @@ bottom = Frame(root)
 top.pack(side=TOP)
 bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
 
+def destroyWindow():
+    root.withdraw()
+    root.destroy()
 
 def display_Credits():
     creditsArea = Canvas(top, relief=GROOVE, bd=3, width=175,
@@ -49,6 +52,7 @@ def display_Credits():
 
 def startGUI():
     root.mainloop()
+
 num1 = StringVar()
 txtDisplay = Entry(top, textvariable=num1, relief=RIDGE,
                    bd=10, width=63, insertwidth=1, font=40)

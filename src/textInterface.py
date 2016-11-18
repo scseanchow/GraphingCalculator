@@ -1,4 +1,3 @@
-import os.path
 from pyparsing import Literal, CaselessLiteral, Word, Combine, Group, Optional,\
     ZeroOrMore, Forward, nums, alphas
 import math
@@ -12,7 +11,6 @@ emptyStack = []
 def startText():
     path = "0"
     while(not path == "q"):
-
         path = raw_input("Enter the type of operation you want to perform.\n"
                          "1 - Calculate solution\n"
                          "2 - Graph Equation\n"
