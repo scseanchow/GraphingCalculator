@@ -5,8 +5,8 @@ import random
 import math
 import parser
 import solve
-from pyparsing import Literal,CaselessLiteral,Word,Combine,Group,Optional,\
-    ZeroOrMore,Forward,nums,alphas
+from pyparsing import Literal, CaselessLiteral, Word, Combine, Group, Optional,\
+    ZeroOrMore, Forward, nums, alphas
 import operator
 
 # expression stack
@@ -29,13 +29,17 @@ txtDisplay = Entry(top, textvariable=num1, relief=RIDGE,
                    bd=10, width=63, insertwidth=1, font=40)
 txtDisplay.grid(row=0, column=0)
 
+
 def limitInput(*args):
     value = x1.get()
-    if len(value) > 4: x1.set(value[:4])
+    if len(value) > 4:
+        x1.set(value[:4])
+
 
 def limitInput2(*args):
     value = x2.get()
-    if len(value) > 4: x2.set(value[:4])
+    if len(value) > 4:
+        x2.set(value[:4])
 
 x1 = StringVar()
 x1.trace('w', limitInput)
@@ -53,22 +57,32 @@ xEntry2 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x2)
 xEntry2.grid(row=1, column=9, sticky=N)
 
 
-graphArea = Canvas(top, relief=GROOVE, bd=3, width=501, height=501, bg="white", highlightcolor="black")
+graphArea = Canvas(top, relief=GROOVE, bd=3, width=501,
+                   height=501, bg="white", highlightcolor="black")
 graphArea.grid(row=1, column=0, sticky=W)
 
 # function to calculate
+
+
 def calculate():
     equation = txtDisplay.get()
-
+    global emptyStack
+    emptyStack = []
+    ans = BNF().parseString(equation)
+    ans = evaluateStack(emptyStack[:])
     txtDisplay.delete(0, END)
     # insert answer
-
+    update_entry(str(ans))
 # clear the text box
+
+
 def clear():
     txtDisplay.delete(0, END)
     return
 
 # function to draw the graph
+
+
 def drawNumbers():
     graphArea.delete("all")
     # lists hold x,y values
@@ -80,7 +94,7 @@ def drawNumbers():
     xRangeMax = float(xEntry2.get())
     for x in np.arange(xRangeMin, xRangeMax, 0.05):  # x1,x2,step
         equation = txtDisplay.get()
-        equation = equation.replace("x",str(x))
+        equation = equation.replace("x", str(x))
         global emptyStack
         emptyStack = []
         ans = BNF().parseString(equation)
@@ -99,7 +113,7 @@ def drawNumbers():
     #     scaleFactor = abs(minimumY-maximumY) / 500
     # else:
     #     scaleFactor = 5;
-    #iterate through both lists, zip preventes from one array going past other
+    # iterate through both lists, zip preventes from one array going past other
     for i, y in zip(xvalues, yvalues):
         # if scaleFactor > 1:
         #     i = i * scaleFactor
@@ -111,15 +125,21 @@ def drawNumbers():
                               250 + i + 1, 250 - y + 1, fill="black")
 
 # functinos for solving infix
-def pushFirst( strg, loc, toks ):
-    emptyStack.append( toks[0] )
-def pushUMinus( strg, loc, toks ):
-    if toks and toks[0]=='-':
-        emptyStack.append( 'unary -' )
+
+
+def pushFirst(strg, loc, toks):
+    emptyStack.append(toks[0])
+
+
+def pushUMinus(strg, loc, toks):
+    if toks and toks[0] == '-':
+        emptyStack.append('unary -')
         #~ exprStack.append( '-1' )
         #~ exprStack.append( '*' )
 
 bnf = None
+
+
 def BNF():
     """
     expop   :: '^'
@@ -133,71 +153,76 @@ def BNF():
     """
     global bnf
     if not bnf:
-        point = Literal( "." )
-        e     = CaselessLiteral( "E" )
-        fnumber = Combine( Word( "+-"+nums, nums ) +
-                           Optional( point + Optional( Word( nums ) ) ) +
-                           Optional( e + Word( "+-"+nums, nums ) ) )
-        ident = Word(alphas, alphas+nums+"_$")
+        point = Literal(".")
+        e = CaselessLiteral("E")
+        fnumber = Combine(Word("+-" + nums, nums) +
+                          Optional(point + Optional(Word(nums))) +
+                          Optional(e + Word("+-" + nums, nums)))
+        ident = Word(alphas, alphas + nums + "_$")
 
-        plus  = Literal( "+" )
-        minus = Literal( "-" )
-        mult  = Literal( "*" )
-        div   = Literal( "/" )
-        lpar  = Literal( "(" ).suppress()
-        rpar  = Literal( ")" ).suppress()
-        addop  = plus | minus
+        plus = Literal("+")
+        minus = Literal("-")
+        mult = Literal("*")
+        div = Literal("/")
+        lpar = Literal("(").suppress()
+        rpar = Literal(")").suppress()
+        addop = plus | minus
         multop = mult | div
-        expop = Literal( "^" )
-        pi    = CaselessLiteral( "PI" )
+        expop = Literal("^")
+        pi = CaselessLiteral("PI")
 
         expr = Forward()
-        atom = (Optional("-") + ( pi | e | fnumber | ident + lpar + expr + rpar ).setParseAction( pushFirst ) | ( lpar + expr.suppress() + rpar )).setParseAction(pushUMinus)
+        atom = (Optional("-") + (pi | e | fnumber | ident + lpar + expr + rpar).setParseAction(
+            pushFirst) | (lpar + expr.suppress() + rpar)).setParseAction(pushUMinus)
 
         # by defining exponentiation as "atom [ ^ factor ]..." instead of "atom [ ^ atom ]...", we get right-to-left exponents, instead of left-to-righ
         # that is, 2^3^2 = 2^(3^2), not (2^3)^2.
         factor = Forward()
-        factor << atom + ZeroOrMore( ( expop + factor ).setParseAction( pushFirst ) )
+        factor << atom + ZeroOrMore((expop + factor).setParseAction(pushFirst))
 
-        term = factor + ZeroOrMore( ( multop + factor ).setParseAction( pushFirst ) )
-        expr << term + ZeroOrMore( ( addop + term ).setParseAction( pushFirst ) )
+        term = factor + ZeroOrMore((multop + factor).setParseAction(pushFirst))
+        expr << term + ZeroOrMore((addop + term).setParseAction(pushFirst))
         bnf = expr
     return bnf
 
 # map operator symbols to corresponding arithmetic operations
 epsilon = 1e-12
-opn = { "+" : operator.add,
-        "-" : operator.sub,
-        "*" : operator.mul,
-        "/" : operator.truediv,
-        "^" : operator.pow }
-fn  = { "sin" : math.sin,
-        "cos" : math.cos,
-        "tan" : math.tan,
-        "abs" : abs,
-        "trunc" : lambda a: int(a),
-        "round" : round,
-        "sgn" : lambda a: abs(a)>epsilon and cmp(a,0) or 0}
-def evaluateStack( s ):
+opn = {"+": operator.add,
+       "-": operator.sub,
+       "*": operator.mul,
+       "/": operator.truediv,
+       "^": operator.pow}
+fn = {"sin": math.sin,
+      "cos": math.cos,
+      "tan": math.tan,
+      "abs": abs,
+      "trunc": lambda a: int(a),
+      "round": round,
+      "sgn": lambda a: abs(a) > epsilon and cmp(a, 0) or 0}
+
+
+def evaluateStack(s):
     op = s.pop()
     if op == 'unary -':
-        return -evaluateStack( s )
+        return -evaluateStack(s)
     if op in "+-*/^":
-        op2 = evaluateStack( s )
-        op1 = evaluateStack( s )
-        return opn[op]( op1, op2 )
+        op2 = evaluateStack(s)
+        op1 = evaluateStack(s)
+        return opn[op](op1, op2)
     elif op == "PI":
-        return math.pi # 3.1415926535
+        return math.pi  # 3.1415926535
     elif op == "E":
         return math.e  # 2.718281828
     elif op in fn:
-        return fn[op]( evaluateStack( s ) )
+        return fn[op](evaluateStack(s))
     elif op[0].isalpha():
         return 0
     else:
-        return float( op )
+        return float(op)
 
 # update text box
+
+
 def update_entry(v):
     current_value = num1.get()
     num1.set(current_value + v)
