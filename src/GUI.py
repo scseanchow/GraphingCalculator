@@ -12,6 +12,10 @@ import operator
 # expression stack
 exprStack = []
 
+# answer stack
+answerStack = []
+index = 0
+
 # Parent Window.
 root = Tk()
 root.geometry('1000x750')
@@ -20,8 +24,10 @@ bottom = Frame(root)
 top.pack(side=TOP)
 bottom.pack(side=BOTTOM, fill=BOTH, expand=True)
 
+
 def display_Credits():
-    creditsArea = Canvas(top, relief=GROOVE, bd=3, width=175, height=130, bg="white", highlightcolor="black")
+    creditsArea = Canvas(top, relief=GROOVE, bd=3, width=175,
+                         height=130, bg="white", highlightcolor="black")
     creditsArea.grid(row=3, column=6, sticky=N, columnspan=3, rowspan=10)
     trevor = creditsArea.create_text(10, 10, anchor="nw")
     creditsArea.itemconfig(trevor, text="Trevor D'Souza")
@@ -39,6 +45,7 @@ def display_Credits():
     creditsArea.itemconfig(scott, text="Scott Bootsma")
     shell = creditsArea.create_text(10, 115, anchor="nw")
     creditsArea.itemconfig(shell, text="Sheldon Taylor-Rawson")
+
 
 def startGUI():
     root.mainloop()
@@ -78,19 +85,45 @@ xEntry2.grid(row=1, column=9, sticky=N)
 
 graphArea = Canvas(top, relief=GROOVE, bd=3, width=501,
                    height=501, bg="white", highlightcolor="black")
-graphArea.grid(row=1, column=0, rowspan = 20,sticky=W)
+graphArea.grid(row=1, column=0, rowspan=20, sticky=W)
+
+
+def goUp():
+    global answerStack
+    global index
+    maxIndex = len(answerStack)
+    print maxIndex
+
+    if (index < maxIndex-1):
+        index += 1
+        txtDisplay.delete(0, END)
+        update_entry(str(answerStack[index]))
+
+
+def goDown():
+    global answerStack
+    global index
+    txtDisplay.delete(0, END)
+    if (index > 0):
+        index -= 1
+        txtDisplay.delete(0, END)
+        update_entry(str(answerStack[index]))
 
 # function to calculate
 
 
 def calculate():
-    equation = txtDisplay.get()
     global emptyStack
+    global answerStack
+    global index
+    index += 1
+    equation = txtDisplay.get()
     emptyStack = []
     ans = BNF().parseString(equation)
     ans = evaluateStack(emptyStack[:])
     txtDisplay.delete(0, END)
     # insert answer
+    answerStack.append(ans)
     update_entry(str(ans))
 # clear the text box
 
@@ -306,10 +339,10 @@ sqrtButton = Button(bottom, text='√', width=15, height=2,
                     bg='skyblue', command=lambda: update_entry("√")).grid(row=0, column=16, columnspan=3)
 exponButton = Button(bottom, text='^', width=15, height=2,
                      bg='skyblue', command=lambda: update_entry("^")).grid(row=1, column=16, columnspan=3)
-exclamButton = Button(bottom, text='!', width=15, height=2,
-                      bg='skyblue', command=lambda: update_entry("!")).grid(row=2, column=16, columnspan=3)
-logButton = Button(bottom, text='log(x)', width=15, height=2,
-                   bg='skyblue', command=lambda: update_entry("log")).grid(row=3, column=16, columnspan=3)
+upButton = Button(bottom, text='UP', width=15, height=2,
+                  bg='skyblue', command=goUp).grid(row=2, column=16, columnspan=3)
+downButton = Button(bottom, text='DOWN', width=15, height=2,
+                    bg='skyblue', command=goDown).grid(row=3, column=16, columnspan=3)
 aButton = Button(bottom, text='A', width=15, height=2,
                  bg='skyblue', command=lambda: update_entry("A")).grid(row=0, column=20, columnspan=3)
 bButton = Button(bottom, text='B', width=15, height=2,
