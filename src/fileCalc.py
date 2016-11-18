@@ -95,6 +95,8 @@ fn  = { "sin" : math.sin,
         "cos" : math.cos,
         "tan" : math.tan,
         "abs" : abs,
+        "sqrt"   : math.sqrt,
+        "factorial": math.factorial,
         "trunc" : lambda a: int(a),
         "round" : round,
         "sgn" : lambda a: abs(a)>epsilon and cmp(a,0) or 0}

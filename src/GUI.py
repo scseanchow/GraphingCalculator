@@ -275,6 +275,8 @@ fn = {"sin": math.sin,
       "cos": math.cos,
       "tan": math.tan,
       "abs": abs,
+      "sqrt": math.sqrt,
+      "factorial": math.factorial,
       "trunc": lambda a: int(a),
       "round": round,
       "sgn": lambda a: abs(a) > epsilon and cmp(a, 0) or 0}
@@ -355,27 +357,22 @@ tanButton = Button(bottom, text='tan', width=15, height=2,
 eButton = Button(bottom, text='e', width=15, height=2,
                  bg='skyblue', command=lambda: update_entry("e")).grid(row=3, column=12, columnspan=3)
 sqrtButton = Button(bottom, text='√', width=15, height=2,
-                    bg='skyblue', command=lambda: update_entry("√")).grid(row=0, column=16, columnspan=3)
+                    bg='skyblue', command=lambda: update_entry("sqrt")).grid(row=0, column=16, columnspan=3)
 exponButton = Button(bottom, text='^', width=15, height=2,
                      bg='skyblue', command=lambda: update_entry("^")).grid(row=2, column=12, columnspan=3)
 upButton = Button(bottom, text='UP', width=15, height=2,
                   bg='skyblue', command=goUp).grid(row=0, column=12, columnspan=3)
 downButton = Button(bottom, text='DOWN', width=15, height=2,
                     bg='skyblue', command=goDown).grid(row=1, column=12, columnspan=3)
-aButton = Button(bottom, text='A', width=15, height=2,
-                 bg='skyblue', command=lambda: update_entry("A")).grid(row=0, column=20, columnspan=3)
-bButton = Button(bottom, text='B', width=15, height=2,
-                 bg='skyblue', command=lambda: update_entry("B")).grid(row=1, column=20, columnspan=3)
-cButton = Button(bottom, text='C', width=15, height=2,
-                 bg='skyblue', command=lambda: update_entry("C")).grid(row=2, column=20, columnspan=3)
 piButton = Button(bottom, text='π', width=15, height=2,
                   bg='skyblue', command=lambda: update_entry("pi")).grid(row=3, column=9, columnspan=3)
 credsButton = Button(top, text='credits', width=10, height=1, bg='gray',
                      command=lambda: display_Credits()).grid(row=2, column=6, sticky=N)
-
+factorialButton = Button(bottom, text='!', width=15, height=2,
+                  bg='skyblue', command=lambda: update_entry("factorial")).grid(row=1, column=16, columnspan=3)
 # Locks the parent windows size.
-root.maxsize(1250, 750)
-root.minsize(1250, 750)
+root.maxsize(1270, 750)
+root.minsize(1270, 750)
 root.wm_title("Graphing Calculator | Group 3")
 # Parent window's background color:
 root.configure(background='white')
