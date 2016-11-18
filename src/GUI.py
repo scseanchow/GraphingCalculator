@@ -82,49 +82,49 @@ root.wm_title("Graphing Calculator | Group 3")
 # Parent window's background color:
 root.configure(background='white')
 # Buttons:
-zeroButton = Button(root, text='0', width=20, height=3, bg='white', fg='black',
-                    command=lambda: update_entry('0')).place(x=264 ,y= 602)
-oneButton = Button(root, text='1', width=8, height=3, bg='white', fg='black', command=lambda: update_entry('1')).place(
-    x=17, y=602)
-twoButton = Button(root, text='2', width=8, height=3, bg='white', fg='black', command=lambda: update_entry('2')).place(
-    x=100, y=602)
-threeButton = Button(root, text='3', width=8, height=3, bg='white', fg='black',
-                     command=lambda: update_entry('3')).place(x=182, y=602)
-fourButton = Button(root, text='4', width=8, height=3, bg='white', fg='black', command=lambda: update_entry('4')).place(
-    x=17, y=522)
-fiveButton = Button(root, text='5', width=8, height=3, bg='white', fg='black', command=lambda: update_entry('5')).place(
-    x=100, y=522)
-sixButton = Button(root, text='6', width=8, height=3, bg='white', fg='black', command=lambda: update_entry('6')).place(
-    x=182, y=522)
-sevenButton = Button(root, text='7', width=8, height=3, bg='white', fg='black',
-                     command=lambda: update_entry('7')).place(x=17, y=442)
-eightButton = Button(root, text='8', width=8, height=3, bg='white', fg='black',
-                     command=lambda: update_entry('8')).place(x=100, y=442)
-ninthButton = Button(root, text='9', width=8, height=3, bg='white', fg='black',
-                     command=lambda: update_entry('9')).place(x=182, y=442)
+zeroButton = Button(root, text='0', width=20, height=2, bg='white', fg='black',
+                    command=lambda: update_entry('0')).place(x=264 ,y= 700)
+oneButton = Button(root, text='1', width=8, height=2, bg='white', fg='black', command=lambda: update_entry('1')).place(
+    x=17, y=700)
+twoButton = Button(root, text='2', width=8, height=2, bg='white', fg='black', command=lambda: update_entry('2')).place(
+    x=100, y=700)
+threeButton = Button(root, text='3', width=8, height=2, bg='white', fg='black',
+                     command=lambda: update_entry('3')).place(x=182, y=700)
+fourButton = Button(root, text='4', width=8, height=2, bg='white', fg='black', command=lambda: update_entry('4')).place(
+    x=17, y=630)
+fiveButton = Button(root, text='5', width=8, height=2, bg='white', fg='black', command=lambda: update_entry('5')).place(
+    x=100, y=630)
+sixButton = Button(root, text='6', width=8, height=2, bg='white', fg='black', command=lambda: update_entry('6')).place(
+    x=182, y=630)
+sevenButton = Button(root, text='7', width=8, height=2, bg='white', fg='black',
+                     command=lambda: update_entry('7')).place(x=17, y=562)
+eightButton = Button(root, text='8', width=8, height=2, bg='white', fg='black',
+                     command=lambda: update_entry('8')).place(x=100, y=562)
+ninthButton = Button(root, text='9', width=8, height=2, bg='white', fg='black',
+                     command=lambda: update_entry('9')).place(x=182, y=562)
 
-decimalButton = Button(root, text='.', width=8, height=3, bg='gray', command=lambda: update_entry('.')).place(x=182,
-                                                                                                              y=682)
-equalButton = Button(root, text='=', width=8, height=8, bg='Lightgreen', command=calculate).place(x=264,
-                                                                                                  y=602)
-plusButton = Button(root, text='+', width=8, height=3, bg='gray',
-                    command=lambda: update_entry('+')).place(x=264, y=442)
-minusButton = Button(root, text='-', width=8, height=3, bg='gray', command=lambda: update_entry('-')).place(x=264,
-                                                                                                            y=522)
-multiplyButton = Button(root, text='x', width=8, height=3, bg='gray', command=lambda: update_entry('*')).place(x=264,
-                                                                                                               y=366)
-divideButton = Button(root, text='÷', width=8, height=3, bg='gray', command=lambda: update_entry('/')).place(x=182,
-                                                                                                             y=366)
-clearButton = Button(root, text='Clear (CE)', width=20,
-                     height=3, command=clear, bg='pink').place(x=17, y=366)
+decimalButton = Button(root, text='.', width=10, height=2, bg='gray', command=lambda: update_entry('.')).place(x=264,
+                                                                                                              y=630)
+equalButton = Button(root, text='=', width=20, height=2, bg='Lightgreen', command=calculate).place(x=264,
+                                                                                                  y=562)
+plusButton = Button(root, text='+', width=8, height=2, bg='gray',
+                    command=lambda: update_entry('+')).place(x=425, y=562)
+minusButton = Button(root, text='-', width=8, height=2, bg='gray', command=lambda: update_entry('-')).place(x=425,
+                                                                                                            y=630)
+multiplyButton = Button(root, text='x', width=8, height=2, bg='gray', command=lambda: update_entry('*')).place(x=425,
+                                                                                                               y=700)
+divideButton = Button(root, text='÷', width=8, height=2, bg='gray', command=lambda: update_entry('/')).place(x=350,
+                                                                                                             y=630)
+clearButton = Button(root, text='Clear (CE)', width=38,
+                     height=3, command=clear, bg='pink').place(x=515, y=495)
 
-shiftButton = Button(root, text='Shift', width=20, height=3,
-                     command=clear, bg='orange').place(x=345, y=366)
+shiftButton = Button(root, text='Shift', width=20, height=5,
+                     command=clear, bg='orange').place(x=515, y=562)
 graphButton = Button(root, text='GRAPH', width=20,
-                     height=19, bg='pink',command = drawNumbers).place(x=345, y=442)
+                     height=5, bg='pink',command = drawNumbers).place(x=515, y=655)
 cosButton = Button(root, text='cos', width=15, height=3,
-                   bg='skyblue',command=lambda: update_entry("cos")).place(x=504, y=366)
+                   bg='skyblue',command=lambda: update_entry("cos")).place(x=675, y=562)
 sineButton = Button(root, text='sine',command=lambda: update_entry("sin"), width=15, height=3,
-                    bg='skyblue').place(x=504, y=442)
+                    bg='skyblue').place(x=675, y=624)
 tanButton = Button(root, text='tan', width=15, height=3,
-                   bg='skyblue',command=lambda: update_entry("tan")).place(x=624, y=366)
+                   bg='skyblue',command=lambda: update_entry("tan")).place(x=675, y=685)
