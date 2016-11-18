@@ -40,7 +40,7 @@ def clear():
 
 # function to draw the graph
 def drawNumbers():
-
+    graphArea.delete("all")
     # lists hold x,y values
     xvalues = []
     yvalues = []
@@ -53,25 +53,25 @@ def drawNumbers():
         xvalues.append(x)
         yvalues.append(eval(a))
 
-    # minimumX = min(xvalues)
-    # maximumX = max(xvalues)
-    # minimumY = min(yvalues)
-    # maximumY = max(yvalues)
+    minimumX = min(xvalues)
+    maximumX = max(xvalues)
+    minimumY = min(yvalues)
+    maximumY = max(yvalues)
 
-    # if (abs(minimumX-maximumX) > abs(minimumY-maximumY) and abs(minimumX-maximumX) > 500 or abs(maximumY-maximumY) > 500):
-    #     scaleFactor = abs(minimumX-maximumX) / 500
-    # elif (abs(maximumY-minimumY) > abs(minimumX-maximumX)):
-    #     scaleFactor = abs(minimumY-maximumY) / 500
-    # else:
-    #     scaleFactor = 5;
-    # iterate through both lists, zip preventes from one array going past other
+    if (abs(minimumX-maximumX) > abs(minimumY-maximumY) and abs(minimumX-maximumX) > 500 or abs(maximumY-maximumY) > 500):
+        scaleFactor = abs(minimumX-maximumX) / 500
+    elif (abs(maximumY-minimumY) > abs(minimumX-maximumX)):
+        scaleFactor = abs(minimumY-maximumY) / 500
+    else:
+        scaleFactor = 5;
+    #iterate through both lists, zip preventes from one array going past other
     for i, y in zip(xvalues, yvalues):
-        # if scaleFactor > 1:
-        #     i = i * scaleFactor
-        #     y = y * scaleFactor
-        # else:
-        #     i = i / scaleFactor
-        #     y = y / scaleFactor
+        if scaleFactor > 1:
+            i = i * scaleFactor
+            y = y * scaleFactor
+        else:
+            i = i / scaleFactor
+            y = y / scaleFactor
         graphArea.create_oval(250 + i - 1, 250 - y - 1,
                               250 + i + 1, 250 - y + 1, fill="black")
 
