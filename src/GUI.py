@@ -54,12 +54,18 @@ txtDisplay = Entry(top, textvariable=num1, relief=RIDGE,
                    bd=10, width=63, insertwidth=1, font=40)
 txtDisplay.grid(row=0, column=2)
 
-g1Label = Button(top,command=lambda:drawIndividualGraph(1), text="G1", font=70)
-g2Label = Button(top,command=lambda:drawIndividualGraph(2), text="G2", font=70)
-g3Label = Button(top,command=lambda:drawIndividualGraph(3), text="G3", font=70)
-g4Label = Button(top,command=lambda:drawIndividualGraph(4), text="G4", font=70)
-g5Label = Button(top,command=lambda:drawIndividualGraph(5), text="G5", font=70)
-g6Label = Button(top,command=lambda:drawIndividualGraph(6), text="G6", font=70)
+g1Label = Button(top, command=lambda: drawIndividualGraph(1),
+                 text="G1", font=70)
+g2Label = Button(top, command=lambda: drawIndividualGraph(2),
+                 text="G2", font=70)
+g3Label = Button(top, command=lambda: drawIndividualGraph(3),
+                 text="G3", font=70)
+g4Label = Button(top, command=lambda: drawIndividualGraph(4),
+                 text="G4", font=70)
+g5Label = Button(top, command=lambda: drawIndividualGraph(5),
+                 text="G5", font=70)
+g6Label = Button(top, command=lambda: drawIndividualGraph(6),
+                 text="G6", font=70)
 
 g1 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
 g1Label.grid(row=2, column=0)
@@ -156,6 +162,7 @@ def clear():
 
 # function to draw the graph
 
+
 def drawIndividualGraph(graphNo):
     xvalues = []
     yvalues = []
@@ -188,28 +195,10 @@ def drawIndividualGraph(graphNo):
     for i, y in zip(xvalues, yvalues):
         graphArea.create_oval(250 + i - 1, 250 - y - 1,
                               250 + i + 1, 250 - y + 1, fill="black")
-def drawNumbers():
+
+
+def clearCanvas():
     graphArea.delete("all")
-    # lists hold x,y values
-    xvalues = []
-    yvalues = []
-    graphArea.create_line(250, 0, 250, 500)
-    graphArea.create_line(0, 250, 500, 250)
-    xRangeMin = float(xEntry1.get())
-    xRangeMax = float(xEntry2.get())
-    for x in np.arange(xRangeMin, xRangeMax, 0.05):  # x1,x2,step
-        equation = txtDisplay.get()
-        equation = equation.replace("x", str(x))
-        global emptyStack
-        emptyStack = []
-        ans = BNF().parseString(equation)
-        ans = evaluateStack(emptyStack[:])
-        xvalues.append(x)
-        yvalues.append(ans)
-    # iterate through both lists, zip preventes from one array going past other
-    for i, y in zip(xvalues, yvalues):
-        graphArea.create_oval(250 + i - 1, 250 - y - 1,
-                              250 + i + 1, 250 - y + 1, fill="black")
 
 # functinos for solving infix
 
@@ -354,8 +343,8 @@ clearButton = Button(bottom, text='Clear (CE)', width=38,
 
 shiftButton = Button(bottom, text='Shift', width=15, height=2,
                      command=clear, bg='orange').grid(row=3, column=9, columnspan=3)
-graphButton = Button(bottom, text='GRAPH', width=38,
-                     height=2, bg='pink', command=drawNumbers).grid(row=2, column=3, columnspan=3)
+clearGraph = Button(bottom, text='CLEAR GRAPHS', width=38,
+                    height=2, bg='pink', command=clearCanvas).grid(row=2, column=3, columnspan=3)
 cosButton = Button(bottom, text='cos', width=15, height=2,
                    bg='skyblue', command=lambda: update_entry("cos")).grid(row=0, column=9, columnspan=3)
 sineButton = Button(bottom, text='sin', command=lambda: update_entry("sin"), width=15, height=2,
