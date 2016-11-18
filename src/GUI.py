@@ -70,19 +70,19 @@ g5Label = Button(top, command=lambda: drawIndividualGraph(5),
 g6Label = Button(top, command=lambda: drawIndividualGraph(6),
                  text="G6", font=70)
 
-g1 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g1 = Entry(top, relief=RIDGE, bd=1, width=20, font=40)
 g1Label.grid(row=2, column=0)
 g1.grid(row=2, column=1)
-g2 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g2 = Entry(top, relief=RIDGE, bd=1, width=20, font=40)
 g2Label.grid(row=3, column=0)
 g2.grid(row=3, column=1)
-g3 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g3 = Entry(top, relief=RIDGE, bd=1, width=20, font=40)
 g3Label.grid(row=4, column=0)
 g3.grid(row=4, column=1)
-g4 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g4 = Entry(top, relief=RIDGE, bd=1, width=20, font=40)
 g4Label.grid(row=5, column=0)
 g4.grid(row=5, column=1)
-g5 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g5 = Entry(top, relief=RIDGE, bd=1, width=20, font=40)
 g5Label.grid(row=6, column=0)
 g5.grid(row=6, column=1)
 
@@ -123,7 +123,6 @@ def goUp():
     global answerStack
     global index
     maxIndex = len(answerStack)
-    print maxIndex
 
     if (index < maxIndex - 1):
         index += 1
