@@ -28,11 +28,11 @@ txtDisplay.grid(row=0, column=0)
 
 def limitInput(*args):
     value = x1.get()
-    if len(value) > 3: x1.set(value[:3])
+    if len(value) > 4: x1.set(value[:4])
 
 def limitInput2(*args):
     value = x2.get()
-    if len(value) > 3: x2.set(value[:3])
+    if len(value) > 4: x2.set(value[:4])
 
 x1 = StringVar()
 x1.trace('w', limitInput)
@@ -43,10 +43,10 @@ x2.trace('w', limitInput2)
 xValuesLabel = Label(top, text="x values:", font=70)
 commaLabel = Label(top, text=",", font=40)
 xValuesLabel.grid(row=1, column=6, sticky=N)
-xEntry1 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x1)
+xEntry1 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x1)
 xEntry1.grid(row=1, column=7, sticky=N)
 commaLabel.grid(row=1, column=8, sticky=N)
-xEntry2 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x2)
+xEntry2 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x2)
 xEntry2.grid(row=1, column=9, sticky=N)
 
 
@@ -73,8 +73,9 @@ def drawNumbers():
     yvalues = []
     graphArea.create_line(250, 0, 250, 500)
     graphArea.create_line(0, 250, 500, 250)
-
-    for x in np.arange(-100, 100, 0.01):  # x1,x2,step
+    xRangeMin = float(xEntry1.get())
+    xRangeMax = float(xEntry2.get())
+    for x in np.arange(xRangeMin, xRangeMax, 0.01):  # x1,x2,step
         equation = txtDisplay.get()
         a = parser.expr(equation).compile()
         xvalues.append(x)
