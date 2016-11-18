@@ -105,7 +105,7 @@ x1.trace('w', limitInput)
 x2 = StringVar()
 x2.trace('w', limitInput2)
 
-xValuesLabel = Label(top, text="x values:", font=70)
+xValuesLabel = Label(top, text="Domain (X1,X2):", font=70)
 commaLabel = Label(top, text=",", font=40)
 xValuesLabel.grid(row=1, column=6, sticky=N)
 xEntry1 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x1)
