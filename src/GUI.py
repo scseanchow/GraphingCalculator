@@ -50,15 +50,17 @@ def display_Credits():
 def startGUI():
     root.mainloop()
 num1 = StringVar()
-txtDisplay = Entry(top, textvariable=num1, relief=RIDGE, bd=10, width=63, insertwidth=1, font=40)
+txtDisplay = Entry(top, textvariable=num1, relief=RIDGE,
+                   bd=10, width=63, insertwidth=1, font=40)
 txtDisplay.grid(row=0, column=2)
 
-g1Label = Label(top, text="G1", font=70)
-g2Label = Label(top, text="G2", font=70)
-g3Label = Label(top, text="G3", font=70)
-g4Label = Label(top, text="G4", font=70)
-g5Label = Label(top, text="G5", font=70)
-g6Label = Label(top, text="G6", font=70)
+g1Label = Button(top,command=lambda:drawIndividualGraph(1), text="G1", font=70)
+g2Label = Button(top,command=lambda:drawIndividualGraph(2), text="G2", font=70)
+g3Label = Button(top,command=lambda:drawIndividualGraph(3), text="G3", font=70)
+g4Label = Button(top,command=lambda:drawIndividualGraph(4), text="G4", font=70)
+g5Label = Button(top,command=lambda:drawIndividualGraph(5), text="G5", font=70)
+g6Label = Button(top,command=lambda:drawIndividualGraph(6), text="G6", font=70)
+
 g1 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
 g1Label.grid(row=2, column=0)
 g1.grid(row=2, column=1)
@@ -75,14 +77,17 @@ g5 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
 g5Label.grid(row=6, column=0)
 g5.grid(row=6, column=1)
 
+
 def limitInput(*args):
     value = x1.get()
-    if len(value) > 3: x1.set(value[:3])
+    if len(value) > 4:
+        x1.set(value[:4])
 
 
 def limitInput2(*args):
     value = x2.get()
-    if len(value) > 3: x2.set(value[:3])
+    if len(value) > 4:
+        x2.set(value[:4])
 
 
 x1 = StringVar()
@@ -94,15 +99,15 @@ x2.trace('w', limitInput2)
 xValuesLabel = Label(top, text="x values:", font=70)
 commaLabel = Label(top, text=",", font=40)
 xValuesLabel.grid(row=1, column=6, sticky=N)
-xEntry1 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x1)
+xEntry1 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x1)
 xEntry1.grid(row=1, column=7, sticky=N)
 commaLabel.grid(row=1, column=8, sticky=N)
-xEntry2 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x2)
+xEntry2 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x2)
 xEntry2.grid(row=1, column=9, sticky=N)
 
-graphArea = Canvas(top, relief=GROOVE, bd=3, width=501, height=501, bg="white", highlightcolor="black")
+graphArea = Canvas(top, relief=GROOVE, bd=3, width=501,
+                   height=501, bg="white", highlightcolor="black")
 graphArea.grid(row=1, column=2, sticky=W, columnspan=5, rowspan=20)
-
 
 
 def goUp():
@@ -151,7 +156,38 @@ def clear():
 
 # function to draw the graph
 
+def drawIndividualGraph(graphNo):
+    xvalues = []
+    yvalues = []
+    graphArea.create_line(250, 0, 250, 500)
+    graphArea.create_line(0, 250, 500, 250)
+    xRangeMin = float(xEntry1.get())
+    xRangeMax = float(xEntry2.get())
 
+    for x in np.arange(xRangeMin, xRangeMax, 0.05):  # x1,x2,step
+        if graphNo == 1:
+            equation = g1.get()
+        elif graphNo == 2:
+            equation = g2.get()
+        elif graphNo == 3:
+            equation = g3.get()
+        elif graphNo == 4:
+            equation = g4.get()
+        elif graphNo == 5:
+            equation = g5.get()
+        elif graphNo == 6:
+            equation = g6.get()
+
+        equation = equation.replace("x", str(x))
+        global emptyStack
+        emptyStack = []
+        ans = BNF().parseString(equation)
+        ans = evaluateStack(emptyStack[:])
+        xvalues.append(x)
+        yvalues.append(ans)
+    for i, y in zip(xvalues, yvalues):
+        graphArea.create_oval(250 + i - 1, 250 - y - 1,
+                              250 + i + 1, 250 - y + 1, fill="black")
 def drawNumbers():
     graphArea.delete("all")
     # lists hold x,y values
@@ -170,26 +206,8 @@ def drawNumbers():
         ans = evaluateStack(emptyStack[:])
         xvalues.append(x)
         yvalues.append(ans)
-
-    # minimumX = min(xvalues)
-    # maximumX = max(xvalues)
-    # minimumY = min(yvalues)
-    # maximumY = max(yvalues)
-    #
-    # if (abs(minimumX-maximumX) > abs(minimumY-maximumY) and abs(minimumX-maximumX) > 500 or abs(maximumY-maximumY) > 500):
-    #     scaleFactor = abs(minimumX-maximumX) / 500
-    # elif (abs(maximumY-minimumY) > abs(minimumX-maximumX)):
-    #     scaleFactor = abs(minimumY-maximumY) / 500
-    # else:
-    #     scaleFactor = 5;
     # iterate through both lists, zip preventes from one array going past other
     for i, y in zip(xvalues, yvalues):
-        # if scaleFactor > 1:
-        #     i = i * scaleFactor
-        #     y = y * scaleFactor
-        # else:
-        #     i = i / scaleFactor
-        #     y = y / scaleFactor
         graphArea.create_oval(250 + i - 1, 250 - y - 1,
                               250 + i + 1, 250 - y + 1, fill="black")
 
