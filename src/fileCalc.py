@@ -23,8 +23,8 @@ def fileRead(input):
                 emptyStack = []
                 ans = BNF().parseString(line)
                 ans = evaluateStack(emptyStack[:])
-                print line + " = " + str(ans)
-                printer.write(line + " = " + str(ans))   #this
+                # print line + " = " + str(ans)
+                printer.write(line + " = " + str(ans) + "\n")   #this
         print "End of file"
         fp.close()      #this
         printer.close() #this

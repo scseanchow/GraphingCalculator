@@ -20,7 +20,7 @@ def startText():
         path = raw_input("Enter the type of operation you want to perform.\n"
                          "1 - Calculate solution\n"
                          "2 - Graph Equation\n")
-        elif (path == "1"):
+        if (path == "1"):
             equation = raw_input("Enter the equation:\n")
             global emptyStack
             emptyStack = []
