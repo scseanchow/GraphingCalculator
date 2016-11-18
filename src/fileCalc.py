@@ -12,7 +12,8 @@ emptyStack = []
 def fileRead(input):
     if (os.path.isfile(input)):
         fp = open(input, 'r')
-        line = "NULL"
+        printer = open("output.txt", 'w')   #this
+        line = "sauce"
         while (not line == None):
             line = fp.readline()
             line = line.replace("\n","")
@@ -23,10 +24,14 @@ def fileRead(input):
                 emptyStack = []
                 ans = BNF().parseString(line)
                 ans = evaluateStack(emptyStack[:])
-                print line + "=" + str(ans)
+                print line + " = " + ans
+                printer.write(line + " = " + ans)   #this
         print "End of file"
+        fp.close()      #this
+        printer.close() #this
     else:
         print "That file does not exist"
+fileRead()
 
 def pushFirst( strg, loc, toks ):
     emptyStack.append( toks[0] )
@@ -36,7 +41,7 @@ def pushUMinus( strg, loc, toks ):
         #~ exprStack.append( '-1' )
         #~ exprStack.append( '*' )
 
-bnf = None
+BNF = None
 def BNF():
     """
     expop   :: '^'

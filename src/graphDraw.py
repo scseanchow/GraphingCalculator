@@ -4,7 +4,6 @@ import math
 # allows for regular "for loops"
 import numpy as np
 import random
-import solve
 
 top = Tkinter.Tk()
 # title of graph

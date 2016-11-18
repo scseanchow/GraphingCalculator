@@ -155,8 +155,8 @@ bButton = Button(bottom, text='B', width=15, height=2,
                  bg='skyblue', command=lambda: update_entry("B")).grid(row=1, column=20, columnspan=3)
 cButton = Button(bottom, text='C', width=15, height=2,
                  bg='skyblue', command=lambda: update_entry("C")).grid(row=2, column=20, columnspan=3)
-piButton = Button(bottom, text='pi', width=15, height=2,
-                  bg='skyblue', command=lambda: update_entry("π")).grid(row=3, column=20, columnspan=3)
+piButton = Button(bottom, text='π', width=15, height=2,
+                  bg='skyblue', command=lambda: update_entry("pi")).grid(row=3, column=20, columnspan=3)
 
 # Locks the parent windows size.
 root.maxsize(1500, 1000)
