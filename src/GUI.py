@@ -49,23 +49,41 @@ def display_Credits():
 
 def startGUI():
     root.mainloop()
-# Main entry.
 num1 = StringVar()
-txtDisplay = Entry(top, textvariable=num1, relief=RIDGE,
-                   bd=10, width=63, insertwidth=1, font=40)
-txtDisplay.grid(row=0, column=0)
+txtDisplay = Entry(top, textvariable=num1, relief=RIDGE, bd=10, width=63, insertwidth=1, font=40)
+txtDisplay.grid(row=0, column=2)
 
+g1Label = Label(top, text="G1", font=70)
+g2Label = Label(top, text="G2", font=70)
+g3Label = Label(top, text="G3", font=70)
+g4Label = Label(top, text="G4", font=70)
+g5Label = Label(top, text="G5", font=70)
+g6Label = Label(top, text="G6", font=70)
+g1 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g1Label.grid(row=2, column=0)
+g1.grid(row=2, column=1)
+g2 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g2Label.grid(row=3, column=0)
+g2.grid(row=3, column=1)
+g3 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g3Label.grid(row=4, column=0)
+g3.grid(row=4, column=1)
+g4 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g4Label.grid(row=5, column=0)
+g4.grid(row=5, column=1)
+g5 = Entry(top, relief=RIDGE, bd=10, width=20, font=40)
+g5Label.grid(row=6, column=0)
+g5.grid(row=6, column=1)
 
 def limitInput(*args):
     value = x1.get()
-    if len(value) > 4:
-        x1.set(value[:4])
+    if len(value) > 3: x1.set(value[:3])
 
 
 def limitInput2(*args):
     value = x2.get()
-    if len(value) > 4:
-        x2.set(value[:4])
+    if len(value) > 3: x2.set(value[:3])
+
 
 x1 = StringVar()
 x1.trace('w', limitInput)
@@ -76,16 +94,15 @@ x2.trace('w', limitInput2)
 xValuesLabel = Label(top, text="x values:", font=70)
 commaLabel = Label(top, text=",", font=40)
 xValuesLabel.grid(row=1, column=6, sticky=N)
-xEntry1 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x1)
+xEntry1 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x1)
 xEntry1.grid(row=1, column=7, sticky=N)
 commaLabel.grid(row=1, column=8, sticky=N)
-xEntry2 = Entry(top, bd=1, width=5, insertwidth=1, font=40, textvariable=x2)
+xEntry2 = Entry(top, bd=10, width=5, insertwidth=1, font=40, textvariable=x2)
 xEntry2.grid(row=1, column=9, sticky=N)
 
+graphArea = Canvas(top, relief=GROOVE, bd=3, width=501, height=501, bg="white", highlightcolor="black")
+graphArea.grid(row=1, column=2, sticky=W, columnspan=5, rowspan=20)
 
-graphArea = Canvas(top, relief=GROOVE, bd=3, width=501,
-                   height=501, bg="white", highlightcolor="black")
-graphArea.grid(row=1, column=0, rowspan=20, sticky=W)
 
 
 def goUp():
