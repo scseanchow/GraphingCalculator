@@ -5,10 +5,11 @@ import random
 import math
 import parser
 import solve
+import sys
 from pyparsing import Literal, CaselessLiteral, Word, Combine, Group, Optional,\
     ZeroOrMore, Forward, nums, alphas
 import operator
-
+sys.stdout = open ("Error_Log.txt", 'w')
 # expression stack
 exprStack = []
 

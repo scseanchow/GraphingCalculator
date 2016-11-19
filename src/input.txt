@@ -1,0 +1,4 @@
+1 + 2 + 3
+sauce
+boss
+sin(3)

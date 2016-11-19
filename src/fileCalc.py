@@ -6,8 +6,16 @@ import math
 import operator
 
 emptyStack = []
-
-
+def lineValidate(input):
+    try:
+        global emptyStack
+        emptyStack = []
+        ans = BNF().parseString(input)
+        ans = evaluateStack(emptyStack[:])
+        return 0
+    except:
+        return 1
+        
 def fileRead(input):
     if (os.path.isfile(input)):
         fp = open(input, 'r')
@@ -18,12 +26,16 @@ def fileRead(input):
             line = line.replace("\n","")
             if (line == ""):
                 break
+            elif (lineValidate(line) == 1):
+                print "INVALID EQUATION"
+                printer.write("INVALID EQUATION\n")
+                continue
             else:
                 global emptyStack
                 emptyStack = []
                 ans = BNF().parseString(line)
                 ans = evaluateStack(emptyStack[:])
-                # print line + " = " + str(ans)
+                print line + " = " + str(ans)
                 printer.write(line + " = " + str(ans) + "\n")   #this
         print "End of file"
         fp.close()      #this
@@ -58,7 +70,10 @@ def BNF():
         fnumber = Combine( Word( "+-"+nums, nums ) +
                            Optional( point + Optional( Word( nums ) ) ) +
                            Optional( e + Word( "+-"+nums, nums ) ) )
+        
+
         ident = Word(alphas, alphas+nums+"_$")
+
 
         plus  = Literal( "+" )
         minus = Literal( "-" )
@@ -115,6 +130,6 @@ def evaluateStack( s ):
     elif op in fn:
         return fn[op]( evaluateStack( s ) )
     elif op[0].isalpha():
-        return 0
+        raise Exception("yolo")
     else:
         return float( op )

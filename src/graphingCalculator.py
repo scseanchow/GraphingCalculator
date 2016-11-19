@@ -3,7 +3,6 @@ import sys
 # takes in command line args to start respective program (1,2,3) ,
 # (gui,text line, text file)
 
-
 def printMenu(argv, textFile):
     if argv == "1":
         print "GUI Interface Started!"
