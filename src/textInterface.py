@@ -3,7 +3,7 @@ from pyparsing import Literal, CaselessLiteral, Word, Combine, Group, Optional,\
 import math
 import operator
 import numpy as np
-
+import fileCalc
 # global stack
 emptyStack = []
 
@@ -18,7 +18,9 @@ def startText():
         global emptyStack
         if (path == "1"):
             equation = raw_input("Enter the equation:\n")
-
+            if (fileCalc.lineValidate(equation) == 1):
+                print "That is not a valid equation."
+                continue
             emptyStack = []
             ans = BNF().parseString(equation)
             ans = evaluateStack(emptyStack[:])
