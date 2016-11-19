@@ -1,0 +1,33 @@
+<INPUT>         |<EXPECTED OUTPUT> |<ACTUAL OUTPUT>    |<REASON FOR INCLUSION>
+0               |0.0               |0.0                |singular constant
+9               |9.0               |9.0                |singular constant
+9.0             |9.0               |9.0                |singular floating point constant
+3 + 4           |7.0               |7.0                |integer addition
+3.0   + 4.1     |7.1               |7.1                |floating point addition, additional whitespace
+-5+2            |-3.0              |-3.0               |unary minus symbol
+(-5)*2          |-10.0             |-10.0              |signed multiplication
+5/2             |2.5               |2.5                |division
+5/2.5           |2.0               |2.0                |division with floating point number
+(5+2)/(3*2)     |~1.166666667      |1.16666666667      |scoping with parentheses, combination of operands
+2^2             |4.0               |4.0                |exponent
+2^3^4           |~2.41785*10^24    |2.41785163923e+24  |large numbers/right-to-left exponent scope
+100^0.5         |10.0              |10.0               |decimal exponent
+sqrt(100)       |10.0              |10.0               |square root
+factorial(4)    |24.0              |24                 |factorial
+4*3*2*1         |24.0              |24.0               |repeated multiplication
+pi              |~3.14159265359    |3.14159265359      |pi constant
+e               |~2.71828182846    |2.71828182846      |e constant
+sin(pi)         |~0                |1.22464679915e-16  |sine test
+cos(0)          |1.0               |1.0                |cosine test
+tan(pi)         |~0                |-1.22464679915e-16 |tangent test
+sin(2)          |~0.90929742682    |0.909297426826     |sine test
+x               |INVALID EQUATION  |INVALID EQUATION   |inserting single letter
+x+2             |INVALID EQUATION  |INVALID EQUATION   |inserting letter into an expression
+[SPACE]         |INVALID EQUATION  |INVALID EQUATION   |whitespace tet
+asdf            |INVALID EQUATION  |INVALID EQUATION   |multiple letters
++               |INVALID EQUATION  |INVALID EQUATION   |operator without operands
+sin()           |INVALID EQUATION  |INVALID EQUATION   |empty function
+(2+3            |INVALID EQUATION  |INVALID EQUATION   |mismatch parenthesis
+((()))2 + 3     |INVALID EQUATION  |INVALID EQUATION   |void parentheses
+sin2            |INVALID EQUATION  |INVALID EQUATION   |missing parentheses for function
+                |                  |                   |
